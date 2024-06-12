@@ -67,7 +67,7 @@ helping_verbs = {
     "せる": 0
 }
 
-#dictates the order when orgaizing helping verbs
+# dictates the order when orgaizing helping verbs
 helping_order = {"せる": 0,
                  "る": 1,
                  "たい": 2,
@@ -80,7 +80,7 @@ helping_order = {"せる": 0,
                  "だ":-1
                  }
 
-#each row matches with a row of the kana table
+# each row matches with a row of the kana table
 te_ta_conj = [
     ["って", "った"],  # i
     ["いて", "いた"],  # ki
@@ -99,11 +99,11 @@ te_ta_conj = [
     ["x", "x"]
 ]
 
-#common verbs that ichidan_or_godan miscategorizes
+# common verbs that ichidan_or_godan miscategorizes
 actually_godan = ["びびる", "どじる", "はいる", "いじる", "混じる",
                   "ねじる", "せびる", "あせる", "ふける", "くねる", "しゃべる"]
 actually_ichidan = ["いる", "居る", "見る", "みる", "着る", "似る", "煮る", "にる", "得る", "出る","寝る"]
-#note-to-self: could do to add slightly more to actually_ichidan. ひいきにみゐる verbs
+# note-to-self: could do to add slightly more to actually_ichidan. ひいきにみゐる verbs
 
 
 def ichidan_or_godan(verb):
@@ -111,19 +111,40 @@ def ichidan_or_godan(verb):
     categorizes a verb as ichidan, godan, or irregular (suru or kuru)
     """
 
+    # if verb is する or くる
     if verb == "する" or verb == "くる":
         return "irregular"
 
+    # if verb is in the groups of verbs the below code misclassifies
     if verb in actually_godan:
         return "godan"
     if verb in actually_ichidan:
         return "ichidan"
 
+    '''
+
+    note on verb conjugation:
+        there are two types of non-suru, non-kuru verbs, ichidan and godan
+    nearly all ichidan verbs end in -eru or -iru in the non-kanji (ひらがな)
+    characters following the kanji the verb starts with called okurigana
+
+        the exceptions to this rule are listed above under "actually_godan" and
+    "actually_ichidan"
+
+        this also means that certain verbs that are written in kana may be mis-
+    conjugated due to ambiguity
+
+    '''
+
+    # if verb can't have okurigana (is <3 chars), returns godan
     try:
         get_kana_index(verb[-2])[1]
     except TypeError:
         return "godan"
 
+    # checks if okurigana are -eru or -iru
+    # sth to fix later: checks 2nd kana when some verbs may be longer than 3 kana
+    # therefore the kana to check for those shouldn't be 2
     if len(verb) > 2:
         if get_kana_index(verb[-2])[1] == 1 or get_kana_index(verb[-2])[1] == 3:
             return "ichidan"
@@ -140,7 +161,7 @@ def conjugate_verb(verb, helping):
 
     ending_index = get_kana_index(verb[-1])
 
-    #returns errors
+    # returns errors
     if helping not in helping_verbs:
         raise LookupError(str(helping) + " helping verb not implemented or invalid")
 
@@ -311,6 +332,3 @@ print(sort_additions(["だ","ない","だ"]))
 print(conjugate_multiple("食べる",["だ","ない"]))
 
 """
-
-
-
