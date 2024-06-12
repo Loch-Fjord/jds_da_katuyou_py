@@ -159,26 +159,40 @@ def conjugate_verb(verb, helping):
     conjugates verb according to one helping verb
     """
 
+    # unsure what this does, confirm later
     ending_index = get_kana_index(verb[-1])
 
-    # returns errors
+    # returns errors for unsupported helping verbs
     if helping not in helping_verbs:
         raise LookupError(str(helping) + " helping verb not implemented or invalid")
 
+    # returns errors for verbs not ending in -u
     if verb[-1] not in u_kana:
         raise TypeError(str(verb) + " doesn't end in -u (ex. 食べる、食べさせる)")
 
+    # converts 来る to くる for reasons to do with how the conjugation of kuru works
+    '''
+    the reasons:
+        来る（くる） changes pronunciation when conjugated
+        (ex. 来る（くる）＋ない＝来ない（こない, not くない）)
+        but that isn't clear from the kanji
+
+        might change later
+
+        note: there is also 為る for suru, but that's ambiguous with なる
+        as well as quite rare
+    '''
     if verb == "来る":
         verb = "くる"
 
-    #checks if irregular conjugation
+    # checks if irregular conjugation
     if verb + helping in irregular_conj:
         return irregular_conj_dict[verb + helping]
 
-    #conjugates ichidan
+    # conjugates ichidan
     if ichidan_or_godan(verb) == "ichidan":
 
-        #changes せる to させる
+        # changes せる to させる
         if helping == "せる":
             helping = "させる"
 
