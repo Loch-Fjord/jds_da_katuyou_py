@@ -259,9 +259,7 @@ def sort_additions(additions):
         previous = ["",0]
         storage = ["",0]
         for i in range(len(sorted_additions)):
-            #print("current addition is " + sorted_additions[i][0] + " value: " + str(sorted_additions[i][1]) + " previous: " + previous[0]+ " value: " + str(previous[1]))
             if previous[1] > sorted_additions[i][1] and sorted_additions[i][1] != -1:
-                #print("switching")
                 storage = sorted_additions[i]
                 sorted_additions[i] = previous
                 sorted_additions[i-1] = storage
@@ -270,11 +268,8 @@ def sort_additions(additions):
         is_sorted = True
 
         for i in range(len(sorted_additions)-1):
-            #print("current addition is " + sorted_additions[i][0] + " value: " + str(sorted_additions[i][1]) + " next is " + sorted_additions[i+1][0] + " value: " + str(sorted_additions[i+1][1]))
             if(sorted_additions[i+1][1] < sorted_additions[i][1] and sorted_additions[i][1] != -1 and sorted_additions[i+1][1] != -1):
                 is_sorted = False
-                #print("not sorted")
-        #is_sorted = True
 
     final_result = []
     for element in sorted_additions:
