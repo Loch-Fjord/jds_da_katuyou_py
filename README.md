@@ -1,4 +1,4 @@
-# jds_da_katuyou_py
+# katuyou
 
 A Python library that conjugates verbs and i-adjectives using a set of helping verbs
 
