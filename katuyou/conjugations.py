@@ -102,7 +102,7 @@ te_ta_conj = [
 #common verbs that ichidan_or_godan miscategorizes
 actually_godan = ["びびる", "どじる", "はいる", "いじる", "混じる",
                   "ねじる", "せびる", "あせる", "ふける", "くねる", "しゃべる"]
-actually_ichidan = ["いる", "居る", "見る", "みる", "着る", "似る", "煮る", "にる", "得る"]
+actually_ichidan = ["いる", "居る", "見る", "みる", "着る", "似る", "煮る", "にる", "得る", "出る","寝る"]
 #note-to-self: could do to add slightly more to actually_ichidan. ひいきにみゐる verbs
 
 
