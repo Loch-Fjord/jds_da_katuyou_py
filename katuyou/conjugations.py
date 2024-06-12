@@ -198,9 +198,12 @@ def conjugate_verb(verb, helping):
 
         if helping_verbs[helping] < 0:
             # if helping verb not た or て
+            # returns the verb w/o る + the helping verb
+            # ex. 食べる+ない＝食べない
             return verb[0:len(verb) - 1] + helping
         else:
             return verb[0:len(verb) - 1] + other_conj["ichidan"][helping_verbs[helping]] + helping
+
     elif ichidan_or_godan(verb) == "irregular":
         if helping_verbs[helping] < 0:
             # if helping verb た or て
@@ -320,6 +323,8 @@ def conjugate_multiple(base, additions: list):
 
 
 """
+for testing purposes
+
 placeholder = "羽織る"
 placeholder2 = "ない"
 print("verb: " + placeholder + " helping verb: " + placeholder2)
